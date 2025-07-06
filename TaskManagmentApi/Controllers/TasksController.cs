@@ -25,10 +25,18 @@ namespace TaskManagmentApi.Controllers
         [HttpPost]
         public IActionResult AddTask(Task newTask)
         {
-            // Incremental Task Id generated, below line finds the maximum id in the task list
-            int maxId = TaskList.Max(t => t.TaskId);
-            // This line increments the maximum by so that the Task id is never duplicated.
-            newTask.TaskId = maxId + 1;
+            try
+            {
+                // Incremental Task Id generated, below line finds the maximum id in the task list
+                int maxId = TaskList.Max(t => t.TaskId);
+                // This line increments the maximum by so that the Task id is never duplicated.
+                newTask.TaskId = maxId + 1;
+            }
+            catch (Exception ex)
+            {
+                newTask.TaskId = 1;
+            }
+            
             TaskList.Add(newTask);
             return Ok(new { message = $"Task with ID {newTask.TaskId} created successfully." });
         }
