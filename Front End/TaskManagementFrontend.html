@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      color: #333;
+    }
+    #taskForm input {
+      padding: 8px;
+      width: 300px;
+    }
+    #taskForm button {
+      padding: 8px 16px;
+      margin-left: 8px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 10px;
+      background: #fff;
+      margin: 8px 0;
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid #ccc;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Task Management</h2>
+
+  <form id="taskForm" onsubmit="addTask(event)">
+    <input type="text" id="Description" placeholder="Enter a task Description" required />
+	<input type="text" id="CreatedBy" placeholder="Created By" required />
+	
+    <button type="submit">Add Task</button>
+  </form>
+
+  <ul id="taskList"></ul>
+
+  <script>
+    const API_URL = "http://localhost:5126/Tasks"; 
+	// This would be replaced by our backend url
+
+// Below line loads all the task by default on page load
+    document.addEventListener("DOMContentLoaded", loadTasks);
+
+    function loadTasks() {
+      fetch(API_URL)
+        .then(res => res.json())
+        .then(tasks => {
+          const list = document.getElementById("taskList");
+          list.innerHTML = "";
+          tasks.forEach(task => displayTask(task));
+        });
+    }
+
+    function displayTask(task) {
+      const list = document.getElementById("taskList");
+      const li = document.createElement("li");
+      li.className = task.isCompleted ? "completed" : "";
+      li.innerHTML = `
+        <span>Task Id: ${task.taskId} Description: ${task.description} Created By: ${task.createdBy} Complted: ${task.isCompleted}</span>
+        <div>
+          <button onclick="deleteTask(${task.taskId})">Delete Task</button>
+        </div>
+      `;
+      list.appendChild(li);
+    }
+
+    function addTask(e) {
+      e.preventDefault();
+      const description = document.getElementById("Description");
+	  const createdBy = document.getElementById("CreatedBy");
+      const newTask = {
+        description: description.value,
+		createdBy: createdBy.value,
+        isCompleted: false
+      };
+
+      fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newTask)
+      })
+        .then(res => res.json())
+        .then(data => {
+		// Clear the input boxes after save
+		description.value = "";
+		createdBy.value = "";
+		alert("Your data has saved successfully.");
+          loadTasks();
+        });
+    }
+
+    function deleteTask(id) {
+      fetch(`${API_URL}/${id}`, {
+        method: "DELETE"
+      })
+        .then(() => {
+		alert("Your task deleted successfully");
+		loadTasks();
+		});
+    }
+  </script>
+</body>
+</html>
