@@ -10,7 +10,15 @@ As we want to create fast, lightweight, and cross-platform. It comes with Automa
 As the requirement for front end is very simple, so no need to go with other front end frameworks like react, angular. These simple api calls would be best to sit in Javascript. We hardly have 3 components for front end, Textbox, button and a list, So use of enterprise front end frameworks would be a overkill 
 
 # System Setup
-Users can clone the repository on their local systems. Only requirement to run this project is the Visual Studio. This IDE helps to easy organise the folder structure and future features can be added just by following the pattern. 
+Users can clone the repository on their local systems. Alternatively, You can download the zip from https://github.com/sabitadevi/Task-Management. ![image](https://github.com/user-attachments/assets/16f08778-fec5-476a-bd43-c0957e96bf16)
+Once you downloaded the zip. Extract the files and double click the solution file. ![image](https://github.com/user-attachments/assets/9a233d34-4359-4c0c-8e26-b91b31523d57). This will open the solution, Click on the Green icon to start the api. 
+![image](https://github.com/user-attachments/assets/ad40a6d1-6b2f-422c-8faf-d66e6dd40090). Once API starts it will look like this ![image](https://github.com/user-attachments/assets/f248bb2a-9417-44d7-be6b-ccc890201006)
+
+# Now Start the Front End
+Open the file by double clicking ![image](https://github.com/user-attachments/assets/41e628b2-072c-4d13-be4d-9b6456cf1826)
+If you see this image, then front end and backend are working. Wow
+![image](https://github.com/user-attachments/assets/28e5b341-f812-4327-8dce-bd12df321c00)
+
 
 You might have to adjust the port numbers from **launchSettings.json** if by default port is not available. Most common port used for this is **3000 or 5000**. ![image](https://github.com/user-attachments/assets/7d824982-02c4-4333-830c-a5b159361b99)
 
